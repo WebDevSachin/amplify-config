@@ -1,0 +1,31 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install
+    build:
+      commands:
+        - echo "COGNITO_CLIENT_ID=$COGNITO_CLIENT_ID" >> .env
+        - echo "COGNITO_CLIENT_SECRET=$COGNITO_CLIENT_SECRET" >> .env
+        - echo "COGNITO_DOMAIN=$COGNITO_DOMAIN" >> .env
+        - echo "COGNITO_ISSUER=$COGNITO_ISSUER" >> .env
+        - echo "COGNITO_SIGN_OUT_URL=$COGNITO_SIGN_OUT_URL" >> .env
+        - echo "DEBUG_MODE=$DEBUG_MODE" >> .env
+        - echo "ENABLE_AUTH=$ENABLE_AUTH" >> .env
+        - echo "NEXTAUTH_SECRET=$NEXTAUTH_SECRET" >> .env
+        - echo "NEXTAUTH_URL=$NEXTAUTH_URL" >> .env
+        - echo "NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL" >> .env
+        - echo "NEXT_PUBLIC_ENABLE_AUTH=$NEXT_PUBLIC_ENABLE_AUTH" >> .env
+        - echo "NEXT_PUBLIC_USE_MOCK_API=$NEXT_PUBLIC_USE_MOCK_API" >> .env
+        - echo "BACKEND_URL=$BACKEND_URL" >> .env
+        - echo "BACKEND_TOKEN=$BACKEND_TOKEN" >> .env
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - .next/cache/**/*
+      - node_modules/**/*
